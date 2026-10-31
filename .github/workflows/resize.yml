@@ -25,10 +25,9 @@ jobs:
           shopt -s nullglob nocaseglob
           for f in *.jpg *.jpeg *.png *.gif; do
             out="s/$f"
-            [ -f "$out" ] && continue
             case "${f,,}" in
-              *.gif) convert "$f" -coalesce -resize '160x160>' -layers Optimize "$out" ;;
-              *) convert "$f" -resize '160x160>' -strip -quality 85 "$out" ;;
+              *.gif) convert "$f" -coalesce -resize '120x120>' -layers Optimize "$out" ;;
+              *) convert "$f" -resize '120x120>' -strip -quality 85 "$out" ;;
             esac
             echo "done $f"
           done
@@ -37,5 +36,5 @@ jobs:
           git config user.name "sticker-bot"
           git config user.email "sticker-bot@users.noreply.github.com"
           git add s
-          git diff --cached --quiet || git commit -m "resize stickers"
+          git diff --cached --quiet || git commit -m "resize stickers to 120"
           git push
